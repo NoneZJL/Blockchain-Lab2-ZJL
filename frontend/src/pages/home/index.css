@@ -1,0 +1,43 @@
+.container {
+    text-align: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.container h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.container .account {
+    margin-bottom: 20px;
+}
+
+.container .account button {
+    margin-bottom: 10px;
+}
+
+.container .main {
+    margin-top: 20px;
+}
+
+.container .main button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 10px;
+}
+
+.container .main button:hover {
+    background-color: #45a049;
+}
+
+.container .main button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
