@@ -112,12 +112,16 @@ contract BuyMyRoom is ERC721 {
         return houses[tokenId].owner;
     }
 
+    function getHousePrice(uint256 tokenId) external view returns (uint256) {
+        return houses[tokenId].price / 1 ether;
+    }
+
     // 用户使用以太币兑换 ERC20 代币
     function buyTokens() external payable {
         require(msg.value > 0, "Ether required");
 
-        // 假设兑换比例：1 Ether = 1000 代币
-        uint256 tokensToMint = msg.value * 1000;
+        // 假设兑换比例：1 ether =  代币
+        uint256 tokensToMint = msg.value;
         myToken.mint(msg.sender, tokensToMint); // 铸造并发送ERC20代币给调用者
 
         // 将收到的以太币转给管理员
@@ -136,7 +140,7 @@ contract BuyMyRoom is ERC721 {
         require(myToken.balanceOf(msg.sender) >= salePrice, "Not enough tokens");
 
         // 计算平台手续费（基于挂单时长）
-        uint256 fee = (block.timestamp - houses[tokenId].listedTimestamp) * listingFeeRate / 100 * salePrice;
+        uint256 fee = (block.timestamp - houses[tokenId].listedTimestamp) / 10000 * listingFeeRate / 100 * salePrice;
         uint256 sellerProceeds = salePrice - fee;
 
         // 使用 ERC20 代币支付
@@ -145,6 +149,7 @@ contract BuyMyRoom is ERC721 {
 
         houses[tokenId].isForSale = false;
         _transfer(seller, msg.sender, tokenId);  // 转移房屋所有权
+        houses[tokenId].owner = msg.sender;
 
         emit HouseSold(tokenId, salePrice, msg.sender);
     }
