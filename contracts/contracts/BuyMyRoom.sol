@@ -120,7 +120,7 @@ contract BuyMyRoom is ERC721 {
     function buyTokens() external payable {
         require(msg.value > 0, "Ether required");
 
-        // 假设兑换比例：1 ether =  代币
+        // 假设兑换比例：1 ether = 1 代币
         uint256 tokensToMint = msg.value;
         myToken.mint(msg.sender, tokensToMint); // 铸造并发送ERC20代币给调用者
 
